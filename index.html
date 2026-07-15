@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องสุ่มจับสลาก และแบ่งกลุ่ม</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎲 เครื่องสุ่มจับสลาก / แบ่งกลุ่ม</h1>
+        
+        <div class="input-group">
+            <label for="nameList">ใส่รายชื่อ (1 ชื่อต่อ 1 บรรทัด):</label>
+            <textarea id="nameList" rows="6" placeholder="สมชาย&#10;สมหญิง&#10;สมศักดิ์"></textarea>
+        </div>
+
+        <div class="mode-selection">
+            <label>เลือกโหมดการทำงาน:</label>
+            <div class="radio-group">
+                <input type="radio" id="modeLucky" name="workMode" value="lucky" checked>
+                <label for="modeLucky" class="radio-label">🎯 สุ่มผู้โชคดี 1 คน</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="modeGroup" name="workMode" value="group">
+                <label for="modeGroup" class="radio-label">👥 แบ่งกลุ่มเป็น N กลุ่ม</label>
+            </div>
+        </div>
+
+        <div class="input-group hidden" id="groupCountWrapper">
+            <label for="groupCount">จำนวนกลุ่มที่ต้องการแบ่ง:</label>
+            <input type="number" id="groupCount" min="2" value="2">
+        </div>
+
+        <button id="actionBtn">เริ่มสุ่มเลย!</button>
+
+        <div id="resultWrapper" class="result-box hidden">
+            <!-- JavaScript จะใส่ผลลัพธ์ตรงนี้ -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

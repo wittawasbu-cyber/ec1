@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f3f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 500px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-size: 22px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 600;
+}
+
+textarea, input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #dcdde1;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+textarea:focus, input[type="number"]:focus {
+    border-color: #3498db;
+}
+
+.mode-selection {
+    margin-bottom: 20px;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.radio-label {
+    margin-bottom: 0;
+    margin-left: 8px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.result-box {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #ebf5fb;
+    border-left: 5px solid #3498db;
+    border-radius: 6px;
+    color: #2c3e50;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ตกแต่งสไตล์กลุ่มที่สุ่มได้ */
+.lucky-title {
+    font-size: 20px;
+    color: #e74c3c;
+    text-align: center;
+}
+
+.group-card {
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
