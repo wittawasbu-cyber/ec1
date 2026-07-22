@@ -2,11 +2,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Sarabun', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f0f3f8;
+    background-color: #f4f7f6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,40 +18,40 @@ body {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
 }
 
 h1 {
+    font-size: 1.5rem;
+    color: #333333;
+    margin-bottom: 20px;
     text-align: center;
-    margin-bottom: 25px;
-    color: #2c3e50;
-    font-size: 22px;
 }
 
 .input-group {
     margin-bottom: 20px;
 }
 
-label {
+.input-group label {
     display: block;
     margin-bottom: 8px;
-    color: #34495e;
-    font-weight: 600;
+    font-weight: bold;
+    color: #555555;
 }
 
 textarea, input[type="number"] {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #dcdde1;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.2s;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    resize: vertical;
 }
 
 textarea:focus, input[type="number"]:focus {
+    outline: none;
     border-color: #3498db;
 }
 
@@ -59,60 +59,68 @@ textarea:focus, input[type="number"]:focus {
     margin-bottom: 20px;
 }
 
+.mode-selection > label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555555;
+}
+
 .radio-group {
     display: flex;
     align-items: center;
-    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .radio-label {
-    margin-bottom: 0;
-    margin-left: 8px;
-    font-weight: normal;
     cursor: pointer;
+    color: #333333;
 }
 
 button {
     width: 100%;
-    padding: 14px;
-    background-color: #3498db;
+    padding: 12px;
+    background-color: #2ecc71;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 6px;
+    font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background-color 0.2s ease;
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #27ae60;
 }
 
 .result-box {
     margin-top: 25px;
-    padding: 20px;
-    background-color: #ebf5fb;
-    border-left: 5px solid #3498db;
+    padding: 15px;
+    background-color: #eef9f1;
+    border: 1px solid #2ecc71;
     border-radius: 6px;
-    color: #2c3e50;
+}
+
+.result-box h2 {
+    font-size: 1.2rem;
+    color: #27ae60;
+    margin-bottom: 10px;
+}
+
+.group-item {
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .hidden {
     display: none;
-}
-
-/* ตกแต่งสไตล์กลุ่มที่สุ่มได้ */
-.lucky-title {
-    font-size: 20px;
-    color: #e74c3c;
-    text-align: center;
-}
-
-.group-card {
-    background: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }

@@ -1,4 +1,4 @@
-// 1. อ้างอิง DOM Elements
+// 1. ดึง Element ทั้งหมด
 const nameListInput = document.getElementById('nameList');
 const modeLuckyRadio = document.getElementById('modeLucky');
 const modeGroupRadio = document.getElementById('modeGroup');
@@ -7,11 +7,19 @@ const groupCountInput = document.getElementById('groupCount');
 const actionBtn = document.getElementById('actionBtn');
 const resultWrapper = document.getElementById('resultWrapper');
 
-// 2. ผูก Event Listeners ดักจับการเปลี่ยนโหมดเปิด/ปิดกล่องกรอกจำนวนกลุ่ม
+// 2. ดักจับ Event
 modeLuckyRadio.addEventListener('change', toggleModeInputs);
 modeGroupRadio.addEventListener('change', toggleModeInputs);
 actionBtn.addEventListener('click', processRandomize);
 
+// ป้องกันการพิมพ์จุด (.) สัญลักษณ์ e, +, - ในช่องจำนวนกลุ่ม
+groupCountInput.addEventListener('keydown', (e) => {
+    if (e.key === '.' || e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-') {
+        e.preventDefault();
+    }
+});
+
+// 3. ฟังก์ชันสลับการแสดงผลช่องกรอกจำนวนกลุ่ม
 function toggleModeInputs() {
     if (modeGroupRadio.checked) {
         groupCountWrapper.classList.remove('hidden');
@@ -20,70 +28,85 @@ function toggleModeInputs() {
     }
 }
 
-// 3. ฟังก์ชันหลักเมื่อกดปุ่มสุ่ม
+// 4. ฟังก์ชันประมวลผลหลัก
 function processRandomize() {
-    // ดึงค่ารายชื่อ ตัดเว้นวรรค และแยกด้วยบรรทัดใหม่ (.split)
-    // .filter(name => name.trim() !== '') ใช้กรองเอาบรรทัดว่างๆ ออกไป
-    const names = nameListInput.value.split('\n').map(name => name.trim()).filter(name => name !== '');
+    // ดึงข้อมูลและตัดช่องว่าง
+    const names = nameListInput.value
+        .split('\n')
+        .map(name => name.trim())
+        .filter(name => name !== '');
 
-    // Validation ตรวจสอบความพร้อมของข้อมูล
     if (names.length === 0) {
-        showError('⚠️ กรุณากรอกรายชื่ออย่างน้อย 1 ชื่อ');
+        alert('กรุณากรอกรายชื่ออย่างน้อย 1 ชื่อ');
         return;
     }
 
+    // ล้างผลลัพธ์เก่า
+    resultWrapper.innerHTML = '';
+    resultWrapper.classList.remove('hidden');
+
     if (modeLuckyRadio.checked) {
-        // --- โหมดสุ่มผู้โชคดี 1 คน ---
-        const randomIndex = Math.floor(Math.random() * names.length);
-        const luckyPerson = names[randomIndex];
-        
-        resultWrapper.innerHTML = `
-            <h3 class="lucky-title">🎯 ผู้โชคดีคือ </h3>
-            <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 10px; color: #2c3e50;">
-                🎉 ${luckyPerson} 🎉
-            </p>
-        `;
+        // โหมดสุ่มผู้โชคดี 1 คน
+        runLuckyDraw(names);
     } else {
-        // --- โหมดแบ่งกลุ่ม ---
-        const numGroups = Number(groupCountInput.value);
-        
-        if (numGroups <= 0 || numGroups > names.length) {
-            showError('⚠️ จำนวนกลุ่มต้องมากกว่า 0 และไม่เกินจำนวนรายชื่อที่มี');
+        // โหมดแบ่งกลุ่ม (แปลงเป็นจำนวนเต็มเสมอด้วย parseInt)
+        let numGroups = parseInt(groupCountInput.value, 10);
+
+        if (isNaN(numGroups) || numGroups < 2) {
+            alert('กรุณากรอกจำนวนกลุ่มเป็นจำนวนเต็มตั้งแต่ 2 ขึ้นไป');
+            resultWrapper.classList.add('hidden');
             return;
         }
 
-        // ใช้อัลกอริทึม Fisher-Yates Shuffle ในการสลับรายชื่อให้สุ่มแบบทั่วถึง
-        const shuffledNames = [...names];
-        for (let i = shuffledNames.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffledNames[i], shuffledNames[j]] = [shuffledNames[j], shuffledNames[i]];
+        if (numGroups > names.length) {
+            alert(`จำนวนกลุ่ม (${numGroups}) มากกว่าจำนวนรายชื่อ (${names.length}) กรุณาปรับลดจำนวนกลุ่ม`);
+            resultWrapper.classList.add('hidden');
+            return;
         }
 
-        // สร้าง Array เปล่าสำหรับเตรียมใส่ชื่อในแต่ละกลุ่ม เช่น [[], [], []]
-        const groups = Array.from({ length: numGroups }, () => []);
-        
-        // แจกจ่ายรายชื่อที่สลับแล้วลงกลุ่มวนไปเรื่อยๆ
-        shuffledNames.forEach((name, index) => {
-            const groupIndex = index % numGroups;
-            groups[groupIndex].push(name);
-        });
-
-        // แสดงผลลัพธ์ด้วย Template Literal
-        let htmlResult = `<h3>👥 ผลการแบ่งกลุ่ม (${numGroups} กลุ่ม):</h3><br>`;
-        groups.forEach((group, index) => {
-            htmlResult += `
-                <div class="group-card">
-                    <strong>กลุ่มที่ ${index + 1}:</strong> ${group.join(', ')}
-                </div>
-            `;
-        });
-        resultWrapper.innerHTML = htmlResult;
+        runGroupDraw(names, numGroups);
     }
-
-    resultWrapper.classList.remove('hidden');
 }
 
-function showError(message) {
-    resultWrapper.innerHTML = `<span style="color: #e74c3c; font-weight: bold;">${message}</span>`;
-    resultWrapper.classList.remove('hidden');
+// 5. โหมดสุ่มคนเดียว
+function runLuckyDraw(names) {
+    const randomIndex = Math.floor(Math.random() * names.length);
+    const luckyPerson = names[randomIndex];
+
+    resultWrapper.innerHTML = `
+        <h2>🎉 ผู้โชคดี ได้แก่:</h2>
+        <p style="font-size: 1.3rem; font-weight: bold; color: #2c3e50; text-align: center;">${luckyPerson}</p>
+    `;
+}
+
+// 6. โหมดแบ่งกลุ่ม (Fisher-Yates Shuffle)
+function runGroupDraw(names, numGroups) {
+    const shuffledNames = [...names];
+
+    // สลับลำดับรายชื่อแบบสุ่ม
+    for (let i = shuffledNames.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledNames[i], shuffledNames[j]] = [shuffledNames[j], shuffledNames[i]];
+    }
+
+    // สร้างอาร์เรย์สำหรับแต่ละกลุ่ม
+    const groups = Array.from({ length: numGroups }, () => []);
+
+    // แจกจ่ายรายชื่อลงกลุ่มตามลำดับวนซ้ำ
+    shuffledNames.forEach((name, index) => {
+        const groupIndex = index % numGroups;
+        groups[groupIndex].push(name);
+    });
+
+    // แสดงผลบนหน้าเว็บ
+    let htmlContent = '<h2>👥 ผลการแบ่งกลุ่ม:</h2>';
+    groups.forEach((group, index) => {
+        htmlContent += `
+            <div class="group-item">
+                <strong>กลุ่มที่ ${index + 1}:</strong> ${group.join(', ')}
+            </div>
+        `;
+    });
+
+    resultWrapper.innerHTML = htmlContent;
 }
