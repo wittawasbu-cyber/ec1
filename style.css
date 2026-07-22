@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #b1c4bd;
+    background-color: #f4f7f6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,7 +85,7 @@ textarea:focus, input[type="number"]:focus {
 button {
     width: 100%;
     padding: 12px;
-    background-color: #382ecc;
+    background-color: #032511;
     color: white;
     border: none;
     border-radius: 6px;
@@ -96,7 +96,7 @@ button {
 }
 
 button:hover {
-    background-color: #053117;
+    background-color: #5627ae;
 }
 
 .result-box {
@@ -119,6 +119,20 @@ button:hover {
     background-color: #ffffff;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* ส่วนที่เพิ่มใหม่สำหรับแสดงข้อมูลผู้จัดทำ */
+.author-info {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed #dddddd;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+.author-info p {
+    margin-bottom: 4px;
 }
 
 .hidden {
