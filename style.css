@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #11c98c;
+    background-color: #b1c4bd;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    background-color: #521c1c;
+    background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -44,7 +44,7 @@ h1 {
 textarea, input[type="number"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #140808;
+    border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1rem;
     resize: vertical;
@@ -85,7 +85,7 @@ textarea:focus, input[type="number"]:focus {
 button {
     width: 100%;
     padding: 12px;
-    background-color: #2ecc71;
+    background-color: #382ecc;
     color: white;
     border: none;
     border-radius: 6px;
@@ -96,7 +96,7 @@ button {
 }
 
 button:hover {
-    background-color: #27ae60;
+    background-color: #053117;
 }
 
 .result-box {
